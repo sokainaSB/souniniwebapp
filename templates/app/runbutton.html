@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Your Django App</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 20px;
+    }
+
+    form {
+      margin-bottom: 20px;
+    }
+
+    button {
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    div {
+      margin-bottom: 20px;
+    }
+
+    h3 {
+      color: #333;
+    }
+
+    pre {
+      white-space: pre-wrap;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+  <!-- Add this input field within the form -->
+  <form method="post" action="{% url 'runbutton' %}" id="runForm">
+    {% csrf_token %}
+    <label for="urlInput">Enter URL:</label>
+    <input type="text" name="urlInput" id="urlInput" placeholder="https://example.com">
+    <button type="submit">Run Python Script</button>
+  </form>
+
+  <h3>Script Output:</h3>
+{% if output %}
+  <div>
+    <pre>{{ output }}</pre>
+  </div>
+{% endif %}
+
+  <div>
+    <h3>Screenshot:</h3>
+    {% if screenshot_path %}
+        {% load static %}
+          <img src="{% static 'image/screenshot.png' %}" alt="Screenshot">
+    {% endif %}
+  </div>
+</body>
+</html>
